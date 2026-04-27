@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex py-3 px-4 md:px-6 bg-white border-b border-slate-200 relative z-30 font-raleway"
+      className="flex py-3 px-4 md:px-6 bg-white border-b border-slate-200 sticky top-0 z-50 font-raleway"
       aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 w-full relative">

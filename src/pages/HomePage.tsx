@@ -13,7 +13,7 @@ const HomePage: React.FC = () => {
         <h1 className="text-5xl font-extrabold text-slate-900">
           This is Raleway
         </h1>
-        
+
         <p className="mt-4 text-lg text-slate-600">
           This paragraph uses the default system sans-serif.
         </p>
