@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Paste your variables here */
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-raleway: "Raleway", sans-serif;
+  
+  /* Brand Specifics */
+  --color-emerald-500: #05A070;
+  --move-time: 10s;
+  
+  /* Any other variables from your list... */
+}
+
+/* Custom Scrollbar Logic (Standard CSS) */
+::-webkit-scrollbar {
+    width: 9px;
+}
+::-webkit-scrollbar-thumb {
+    background: #05a070;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Custom Selection Logic */
+::selection {
+    color: #fff;
+    background: #05a070;
+}
