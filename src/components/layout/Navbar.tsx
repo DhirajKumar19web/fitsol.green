@@ -1,10 +1,32 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { 
+  Menu, X, Truck, Trash2, ShoppingCart, Leaf, Package, RefreshCw, 
+  Shirt, Building, Car, Factory, Layers, FileText, ArrowRight 
+} from 'lucide-react';
 import logo from '../../assets/logo.svg';
+
+const managedServices = [
+  { icon: Truck, title: 'Green Logistics', desc: 'Lower costs, smarter routes' },
+  { icon: Trash2, title: 'Waste Management', desc: 'Efficient, compliant, cost-cutting' },
+  { icon: ShoppingCart, title: 'Green Procurement', desc: 'Sustainable sourcing, real savings' },
+  { icon: Leaf, title: 'Carbon Credits', desc: 'Monetize verified emission cuts' },
+  { icon: Package, title: 'Green Packaging', desc: 'Cut waste, protect margins' },
+  { icon: RefreshCw, title: 'EPR', desc: '' },
+];
+
+const industries = [
+  { icon: Shirt, title: 'Textile', desc: 'Sustainable textiles, no extra costs' },
+  { icon: Building, title: 'Cement', desc: 'Cleaner cement, reduced emissions' },
+  { icon: Car, title: 'Automotive', desc: 'Efficient mobility, lower emissions' },
+  { icon: Factory, title: 'Iron & Steel', desc: 'Strong steel, smaller footprint' },
+  { icon: Layers, title: 'Aluminium', desc: 'Greener aluminium, lower costs' },
+  { icon: FileText, title: 'Paper & Pulp', desc: 'Smarter paper, cleaner processes' },
+];
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -41,16 +63,122 @@ const Navbar = () => {
           </div>
 
           <ul className="flex flex-col lg:flex-row lg:items-center gap-1 lg:gap-14 p-6 lg:p-0 text-[14px] font-[200]">
-            <li>
+            <li 
+              onMouseEnter={() => setActiveDropdown('solutions')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
               <span className={`${navLinkClasses({ isActive: false })} cursor-pointer`}>
                 Solutions
               </span>
+              
+              {/* Mega Menu - Solutions */}
+              {activeDropdown === 'solutions' && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[750px] hidden lg:block z-50 cursor-default">
+                  <div className="bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] p-8 border border-slate-100 flex flex-col gap-8 text-left">
+                    {/* BY MANAGED SERVICE */}
+                    <div>
+                      <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">By Managed Service</h3>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {managedServices.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
+                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                              <item.icon size={20} />
+                            </div>
+                            <div>
+                              <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                {item.title}
+                                <ArrowRight size={16} className="inline ml-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                              </h4>
+                              {item.desc && <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* BY INDUSTRY */}
+                    <div>
+                      <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">By Industry</h3>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {industries.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
+                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                              <item.icon size={20} />
+                            </div>
+                            <div>
+                              <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                {item.title}
+                                <ArrowRight size={16} className="inline ml-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                              </h4>
+                              {item.desc && <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </li>
-            <li>
+            
+            <li 
+              onMouseEnter={() => setActiveDropdown('platform')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
               <span className={`${navLinkClasses({ isActive: true })} cursor-pointer`}>
                 Platform
               </span>
+              
+              {/* Mega Menu - Platform */}
+              {activeDropdown === 'platform' && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-6 w-[750px] hidden lg:block z-50 cursor-default">
+                  <div className="bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] p-8 border border-slate-100 flex flex-col gap-8 text-left">
+                    {/* BY MANAGED SERVICE */}
+                    <div>
+                      <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">By Managed Service</h3>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {managedServices.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
+                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                              <item.icon size={20} />
+                            </div>
+                            <div>
+                              <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                {item.title}
+                                <ArrowRight size={16} className="inline ml-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                              </h4>
+                              {item.desc && <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* BY INDUSTRY */}
+                    <div>
+                      <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">By Industry</h3>
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
+                        {industries.map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
+                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                              <item.icon size={20} />
+                            </div>
+                            <div>
+                              <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                {item.title}
+                                <ArrowRight size={16} className="inline ml-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                              </h4>
+                              {item.desc && <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </li>
+            
             <li>
               <span className={`${navLinkClasses({ isActive: false })} cursor-pointer`}>
                 Resources
