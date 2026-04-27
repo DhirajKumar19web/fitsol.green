@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import Container from "../components/layout/Container";
 
 const PricingPage: React.FC = () => {
     return (
@@ -8,14 +9,17 @@ const PricingPage: React.FC = () => {
             <Navbar />
 
             {/* 3. flex-grow (or flex-1) pushes the footer to the very bottom */}
-            <main className="grow p-8">
-                <h1 className="text-5xl font-extrabold text-slate-900">
-                    This is Raleway
-                </h1>
 
-                <p className="mt-4 text-lg text-slate-600">
-                    This paragraph uses the default system sans-serif.
-                </p>
+            <main className="grow py-8">
+                <Container>
+                    <h1 className="text-5xl font-extrabold text-slate-900">
+                        This is Raleway
+                    </h1>
+
+                    <p className="mt-4 text-lg text-slate-600">
+                        This paragraph uses the default system sans-serif.
+                    </p>
+                </Container>
             </main>
 
             <Footer />

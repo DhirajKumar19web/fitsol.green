@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import Container from './Container';
 import {
   Menu, X, Truck, Trash2, ShoppingCart, Leaf, Package, RefreshCw,
   Shirt, Building, Car, Factory, Layers, FileText, ArrowRight,
@@ -62,10 +63,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className="flex py-3 px-4 md:px-6 bg-white border-b border-slate-200 sticky top-0 z-50 font-raleway"
+      className="flex py-3 bg-white border-b border-slate-200 sticky top-0 z-50 font-raleway"
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 w-full relative">
+      <Container className="flex items-center justify-between gap-4 relative">
         {/* Logo */}
         <Link to="/" className="shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a1ac3c] z-50 rounded-lg relative">
           <img src={logo} alt="logo" className="w-[80px] h-[30px]" />
@@ -405,7 +406,7 @@ const Navbar = () => {
             onClick={toggleMobileMenu}
           />
         )}
-      </div>
+      </Container>
     </nav>
   );
 };

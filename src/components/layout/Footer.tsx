@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
+import Container from './Container';
+import CompanyInfo from '../common/CompanyInfo';
+import NewsletterSubscription from '../common/NewsletterSubscription';
 
 const footerLinks = [
   {
@@ -60,7 +63,18 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-white border-t border-slate-100 max-lg:mt-0 mt-20">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pt-12 lg:pt-20 pb-8">
+      <Container className="pt-12 lg:pt-20 pb-8">
+        
+        {/* Top Section: Company Info & Newsletter */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-20 lg:mb-24">
+          <div className="lg:col-span-4 xl:col-span-4 flex items-center">
+            <CompanyInfo />
+          </div>
+          <div className="lg:col-span-8 xl:col-span-8 flex items-center">
+            <NewsletterSubscription />
+          </div>
+        </div>
+
         {/* Desktop Footer Links */}
         <div className="hidden lg:grid grid-cols-5 gap-8 mb-20">
           {footerLinks.map((section, idx) => (
@@ -129,7 +143,7 @@ const Footer: React.FC = () => {
             <Link to="#" className="hover:text-emerald-500 hover:underline transition-all">DPA</Link>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }
