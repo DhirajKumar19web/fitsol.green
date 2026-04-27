@@ -42,7 +42,7 @@ const resourceDetails: Record<string, {icon: any, title: string, desc: string}[]
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [activeResourceTab, setActiveResourceTab] = useState('library');
+  const [activeResourceTab, setActiveResourceTab] = useState<string | null>(null);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
@@ -98,8 +98,9 @@ const Navbar = () => {
                       <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {managedServices.map((item, idx) => (
                           <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
-                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                              <item.icon size={20} />
+                            <div className="relative w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.4)]">
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#006ded] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                              <item.icon size={20} className="relative z-10" />
                             </div>
                             <div>
                               <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
@@ -119,8 +120,9 @@ const Navbar = () => {
                       <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {industries.map((item, idx) => (
                           <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
-                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                              <item.icon size={20} />
+                            <div className="relative w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.4)]">
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#006ded] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                              <item.icon size={20} className="relative z-10" />
                             </div>
                             <div>
                               <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
@@ -157,8 +159,9 @@ const Navbar = () => {
                       <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                         {managedServices.map((item, idx) => (
                           <div key={idx} className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group">
-                            <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                              <item.icon size={20} />
+                            <div className="relative w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.4)]">
+                              <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#006ded] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                              <item.icon size={20} className="relative z-10" />
                             </div>
                             <div>
                               <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
@@ -200,75 +203,82 @@ const Navbar = () => {
             <li 
               className="relative"
               onMouseEnter={() => setActiveDropdown('resources')}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseLeave={() => { setActiveDropdown(null); setActiveResourceTab(null); }}
             >
               <span className={`${navLinkClasses({ isActive: false })} cursor-pointer`}>
                 Resources
               </span>
               
               {/* Mega Menu - Resources */}
-              {activeDropdown === 'resources' && (
-                <div className="absolute top-full left-0 pt-6 w-[700px] hidden lg:block z-50 cursor-default">
-                  <div className="bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] p-8 border border-slate-100 flex text-left min-h-[300px]">
-                    
-                    {/* Left Pane */}
-                    <div className="w-[50%] pr-6 border-r border-slate-200">
-                      <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">Resources</h3>
-                      <div className="flex flex-col gap-2">
-                        {resourceLinks.map((item) => (
-                          <div 
-                            key={item.id} 
-                            onMouseEnter={() => setActiveResourceTab(item.id)}
-                            className={`flex items-start gap-4 p-3 rounded-xl transition-colors cursor-pointer group ${activeResourceTab === item.id ? 'bg-slate-50' : 'hover:bg-slate-50'}`}
-                          >
-                            <div className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center text-white transition-transform ${activeResourceTab === item.id && item.id === 'library' ? 'bg-[#006ded]' : 'bg-emerald-500'} group-hover:scale-105`}>
-                              <item.icon size={20} />
+              {activeDropdown === 'resources' && (() => {
+                const hasDetails = activeResourceTab && resourceDetails[activeResourceTab]?.length > 0;
+                
+                return (
+                  <div className="absolute top-full left-0 pt-6 hidden lg:block z-50 cursor-default">
+                    <div className={`bg-white rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] p-8 border border-slate-100 flex text-left min-h-[300px] overflow-hidden transition-all duration-300 ease-out ${hasDetails ? 'w-[700px]' : 'w-[382px]'}`}>
+                      
+                      {/* Left Pane */}
+                      <div className={`w-[318px] shrink-0 pr-6 transition-colors duration-300 ${hasDetails ? 'border-r-2 border-slate-200' : 'border-r-2 border-transparent'}`}>
+                        <h3 className="text-slate-500 text-[11px] font-bold mb-4 tracking-wider uppercase">Resources</h3>
+                        <div className="flex flex-col gap-2">
+                          {resourceLinks.map((item) => (
+                            <div 
+                              key={item.id} 
+                              onMouseEnter={() => setActiveResourceTab(item.id)}
+                              className={`flex items-start gap-4 p-3 rounded-xl transition-colors cursor-pointer group ${activeResourceTab === item.id ? 'bg-slate-50' : 'hover:bg-slate-50'}`}
+                            >
+                              <div className={`relative w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white overflow-hidden transition-all duration-300 ${activeResourceTab === item.id ? 'scale-110 shadow-[0_4px_15px_rgba(16,185,129,0.4)]' : 'group-hover:scale-110 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.4)]'}`}>
+                                <div className={`absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#006ded] transition-opacity duration-300 ${activeResourceTab === item.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}></div>
+                                <item.icon size={20} className="relative z-10" />
+                              </div>
+                              <div>
+                                <h4 className={`text-[13px] font-semibold transition-colors ${activeResourceTab === item.id ? 'text-emerald-600' : 'text-slate-800 group-hover:text-emerald-600'}`}>
+                                  {item.title}
+                                  <ArrowRight size={16} className={`inline ml-1 transition-all ${activeResourceTab === item.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
+                                </h4>
+                                {item.desc && <p className="text-[11px] leading-tight text-slate-500 mt-0.5">{item.desc}</p>}
+                              </div>
                             </div>
-                            <div>
-                              <h4 className={`text-[13px] font-semibold transition-colors ${activeResourceTab === item.id ? 'text-emerald-600' : 'text-slate-800 group-hover:text-emerald-600'}`}>
-                                {item.title}
-                                <ArrowRight size={16} className={`inline ml-1 transition-all ${activeResourceTab === item.id ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
-                              </h4>
-                              {item.desc && <p className="text-[11px] leading-tight text-slate-500 mt-0.5">{item.desc}</p>}
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Right Pane */}
-                    <div className="w-[50%] pl-8">
-                      <h3 className="text-slate-600 text-[13px] font-semibold mb-6">{resourceLinks.find(r => r.id === activeResourceTab)?.title}</h3>
-                      <div className="flex flex-col gap-6">
-                        {resourceDetails[activeResourceTab]?.map((item, idx) => (
-                          <div key={idx} className="flex items-start gap-4 group cursor-pointer">
-                             <div className="w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                              <item.icon size={20} />
+                      {/* Right Pane */}
+                      <div className={`w-[318px] shrink-0 pl-8 transition-opacity duration-300 delay-75 ${hasDetails ? 'opacity-100' : 'opacity-0'}`}>
+                        <h3 className="text-slate-600 text-[13px] font-semibold mb-6">{activeResourceTab ? resourceLinks.find(r => r.id === activeResourceTab)?.title : ' '}</h3>
+                        <div className="flex flex-col gap-6">
+                          {(activeResourceTab ? resourceDetails[activeResourceTab] : [])?.map((item, idx) => (
+                            <div key={idx} className="flex items-start gap-4 group cursor-pointer">
+                               <div className="relative w-10 h-10 shrink-0 rounded-full bg-emerald-500 flex items-center justify-center text-white overflow-hidden transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_4px_15px_rgba(16,185,129,0.4)]">
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#10b981] to-[#006ded] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <item.icon size={20} className="relative z-10" />
+                              </div>
+                              <div>
+                                <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                                  {item.title}
+                                  <ArrowRight size={16} className="inline ml-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+                                </h4>
+                                {item.desc && <p className="text-[11px] leading-tight text-slate-500 mt-0.5">{item.desc}</p>}
+                              </div>
                             </div>
-                            <div>
-                              <h4 className="text-[13px] font-semibold text-slate-800 group-hover:text-emerald-600 transition-colors">
-                                {item.title}
-                              </h4>
-                              {item.desc && <p className="text-[11px] leading-tight text-slate-500 mt-0.5">{item.desc}</p>}
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })()}
             </li>
             <li>
-              <span className={`${navLinkClasses({ isActive: false })} cursor-pointer`}>
+              <NavLink to="/about" className={({ isActive }) => `${navLinkClasses({ isActive })} cursor-pointer`}>
                 About
-              </span>
+              </NavLink>
             </li>
             <li>
-              <span className={`${navLinkClasses({ isActive: false })} cursor-pointer`}>
+              <NavLink to="/pricing" className={({ isActive }) => `${navLinkClasses({ isActive })} cursor-pointer`}>
                 Pricing
-              </span>
+              </NavLink>
             </li>
           </ul>
         </div>
